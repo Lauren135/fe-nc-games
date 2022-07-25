@@ -20,7 +20,7 @@ export default function Reviews({selectCategory, categories, setCategories, setS
  <Categories categories={categories} setCategories={setCategories} setSelectCategory= {setSelectCategory}/>
 <ul className='review-list'>
     {reviewList.map(review =>{
-         return   <li key={review.review_id} ><ReviewCard review= {review}/></li>
+        return <li key={review.review_id} ><ReviewCard review= {review}/></li>
         })}
         </ul>
     </main>

@@ -19,7 +19,7 @@
   border-radius: 30px;
   border: 2px solid #ccc;
   padding: 10px;
-  width: 100em;
+  max-width: 100em;
 }
 .review-title {
   font-size: 1.5rem;

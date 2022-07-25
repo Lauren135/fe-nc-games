@@ -10,17 +10,19 @@ export default function Categories({setSelectCategory,categories,setCategories})
         setCategories(res.data.categories)
         setIsLoading(false)
     })
-    },[])
+    },[setCategories])
 
     const selectedCategoryHandler = (event) => {
         setSelectCategory(event.target.value)
         }
         
-        return isLoading?<p>Loading...</p>:<div className='filters-container'><label htmlFor="categories">Category:</label>
+        return isLoading?<p>Loading...</p>:<div className='filters-container'>
+            <label htmlFor="categories">Category:</label>
         <select name="categories" id="categories" onChange= {selectedCategoryHandler}>
             <option value = ''></option>
         {categories.map(category =>{
-            return <option value = {category.slug} key={category.slug}>{category.slug} ({category.description})</option>
+            const cat = category.slug.charAt(0).toUpperCase()+category.slug.slice(1) 
+            return <option value = {category.slug} key={category.slug}>{cat}</option>
         })}
         </select>
         

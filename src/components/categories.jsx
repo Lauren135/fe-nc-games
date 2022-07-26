@@ -1,30 +1,54 @@
-import {useEffect, useState} from 'react'
-import axios from 'axios'
+import { useEffect, useState } from "react";
+//import { Navigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function Categories({setSelectCategory,categories,setCategories}){
-    const [isLoading, setIsLoading] = useState(true)
+export default function Categories({
+  setSelectCategory,
+  reviewCategories,
+  setReviewCategories,
+  selectCategory,
+}) {
+  const [isLoading, setIsLoading] = useState(true);
+  let navigate = useNavigate();
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get(`https://my-be-nc-games.herokuapp.com/api/categories`)
+      .then((res) => {
+        setReviewCategories(res.data.categories);
+        setIsLoading(false);
+      });
+  }, [setReviewCategories]);
 
-    useEffect(()=>{
-        setIsLoading(true)
-    axios.get(`https://my-be-nc-games.herokuapp.com/api/categories`).then(res =>{
-        setCategories(res.data.categories)
-        setIsLoading(false)
-    })
-    },[setCategories])
+  function selectedCategoryHandler(event) {
+    event.preventDefault();
+    setSelectCategory(event.target.value);
+    navigate(`/categories/${event.target.value}`);
+  }
 
-    const selectedCategoryHandler = (event) => {
-        setSelectCategory(event.target.value)
-        }
-        
-        return isLoading?<p>Loading...</p>:<div className='filters-container'>
-            <label htmlFor="categories">Category:</label>
-        <select name="categories" id="categories" onChange= {selectedCategoryHandler}>
-            <option value = ''></option>
-        {categories.map(category =>{
-            const cat = category.slug.charAt(0).toUpperCase()+category.slug.slice(1) 
-            return <option value = {category.slug} key={category.slug}>{cat}</option>
+  return isLoading ? (
+    <p>Loading...</p>
+  ) : (
+    <div className="filters-container">
+      <label htmlFor="categories">Category:</label>
+      <select
+        name="categories"
+        id="categories"
+        value={selectCategory}
+        onChange={selectedCategoryHandler}
+      >
+        <option value=""></option>
+        {reviewCategories.map((category) => {
+          const cat =
+            category.slug.charAt(0).toUpperCase() + category.slug.slice(1);
+          return (
+            <option value={category.slug} key={category.slug}>
+              {cat}
+            </option>
+          );
         })}
-        </select>
-        
-        </div>
+      </select>
+    </div>
+  );
 }

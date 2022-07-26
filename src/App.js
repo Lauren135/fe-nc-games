@@ -8,7 +8,7 @@ import Navigation from "./components/navigation";
 
 function App() {
   const [selectCategory, setSelectCategory] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [reviewCategories, setReviewCategories] = useState([]);
   return (
     <BrowserRouter>
       <div className="App">
@@ -16,13 +16,24 @@ function App() {
         <Navigation setSelectCategory={setSelectCategory} />
         <Routes>
           <Route
+            path="/categories/:category"
+            element={
+              <Reviews
+                setSelectCategory={setSelectCategory}
+                selectCategory={selectCategory}
+                setReviewCategories={setReviewCategories}
+                reviewCategories={reviewCategories}
+              />
+            }
+          />
+          <Route
             path="/"
             element={
               <Reviews
-                categories={categories}
-                setCategories={setCategories}
                 setSelectCategory={setSelectCategory}
                 selectCategory={selectCategory}
+                setReviewCategories={setReviewCategories}
+                reviewCategories={reviewCategories}
               />
             }
           />

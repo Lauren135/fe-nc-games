@@ -95,3 +95,20 @@ color: rgb(108, 108, 110);
   color: rgb(108, 108, 110);
 }
 
+.like-buttons {
+  margin-top: 20px;
+}
+
+.like-button {
+  font-size: 17px;
+  margin-right: 2px;
+}
+
+.dislike-button {
+  font-size: 17px;
+  margin-left: 2px;
+}
+
+.likes{
+  margin-left: 10px;
+}

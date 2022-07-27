@@ -5,6 +5,7 @@ import { useState } from "react";
 import Header from "./components/header";
 import Reviews from "./components/reviews";
 import Navigation from "./components/navigation";
+import SingleReview from "./components/singleReview";
 
 function App() {
   const [selectCategory, setSelectCategory] = useState("");
@@ -37,6 +38,7 @@ function App() {
               />
             }
           />
+          <Route path="/reviews/:review_id" element={<SingleReview />} />
         </Routes>
       </div>
     </BrowserRouter>

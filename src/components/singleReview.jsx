@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { AiFillLike, AiFillDislike } from "react-icons/ai";
 
 export default function SingleReview() {
   const { review_id } = useParams();
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   useEffect(() => {
     setIsLoading(true);
     axios
@@ -16,8 +18,44 @@ export default function SingleReview() {
       });
   }, [review_id]);
 
+  function incrementLike(owner) {
+    axios
+      .patch(`https://my-be-nc-games.herokuapp.com/api/reviews/${review_id}`, {
+        inc_votes: 1,
+      })
+      .catch((err) => {
+        setError(err);
+      });
+    const updatedReview = reviews.map((review) => {
+      if (review.owner === owner) {
+        review.votes++;
+      }
+      return review;
+    });
+    setReviews(updatedReview);
+  }
+
+  function decrementLike(owner) {
+    axios
+      .patch(`https://my-be-nc-games.herokuapp.com/api/reviews/${review_id}`, {
+        inc_votes: -1,
+      })
+      .catch((err) => {
+        setError(err);
+      });
+    const updatedReview = reviews.map((review) => {
+      if (review.owner === owner) {
+        review.votes--;
+      }
+      return review;
+    });
+    setReviews(updatedReview);
+  }
+
   return isLoading ? (
     <p>Loading...</p>
+  ) : error ? (
+    <p>could not execute action</p>
   ) : (
     <div className="review-card-container-single-review">
       {reviews.map((review) => {
@@ -42,6 +80,25 @@ export default function SingleReview() {
               <span className="owner">{review.owner} -</span>
             </span>
             <span className="single-review-body">{review.review_body}</span>
+            <div className="like-buttons">
+              <button
+                className="like-button"
+                onClick={() => {
+                  incrementLike(review.owner);
+                }}
+              >
+                <AiFillLike />
+              </button>
+              <button
+                className="dislike-button"
+                onClick={() => {
+                  decrementLike(review.owner);
+                }}
+              >
+                <AiFillDislike />
+              </button>
+              <span className="likes">{review.votes}</span>
+            </div>
           </div>
         );
       })}

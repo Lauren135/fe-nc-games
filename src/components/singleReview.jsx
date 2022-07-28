@@ -58,6 +58,10 @@ export default function SingleReview() {
     setReviews(updatedReview);
   }
 
+  function disableButton(event) {
+    return (event.currentTarget.disabled = true);
+  }
+
   return isLoading ? (
     <p>Loading...</p>
   ) : error ? (
@@ -94,7 +98,13 @@ export default function SingleReview() {
               >
                 View Comments ({review.comment_count})
               </CommentsButton>
-              <div className="comment-card">{isOpen && <CommentsCard />}</div>
+              <div className="comment-card">
+                {isOpen && review.comment_count > 0 ? (
+                  <CommentsCard />
+                ) : (
+                  disableButton
+                )}
+              </div>
               <button
                 className="like-button"
                 onClick={(event) => {

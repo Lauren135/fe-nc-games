@@ -94,7 +94,7 @@ color: rgb(108, 108, 110);
 .action-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content:left;
   align-items: center;
   margin-top: 20px;
 }
@@ -111,23 +111,12 @@ color: rgb(108, 108, 110);
 
 .likes{
   margin-left: 10px;
+  margin-right: 20px;
 }
 
 .comments-button {
   margin-right: 15px;
   font-size: 17px;
-}
-
-.comments-card-container{
-  margin: 10px;
-  border: 2px solid #ccc;
-  padding: 10px;
-  margin-top: 100px;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-
 }
 
 
@@ -148,6 +137,21 @@ color: rgb(108, 108, 110);
 }
 
 .comment-card {
-  padding-top: 50px;
-  max-height:min-content;
+
+  border: 2px solid #ccc;
+  padding: 10px;
+  flex-wrap: wrap;
+
+}
+
+.line {
+  border-bottom: 2px solid #ccc;
+  display: block;
+}
+.hide-comments {
+  display: flex;
+  flex-direction: row;
+  justify-content:left;
+  align-items: center;
+  margin-top: 10px;
 }

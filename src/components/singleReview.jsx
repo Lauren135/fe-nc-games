@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
@@ -12,6 +13,7 @@ export default function SingleReview() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [disable, setDisable] = React.useState(false);
   useEffect(() => {
     setIsLoading(true);
     axios
@@ -58,10 +60,6 @@ export default function SingleReview() {
     setReviews(updatedReview);
   }
 
-  function disableButton(event) {
-    return (event.currentTarget.disabled = true);
-  }
-
   return isLoading ? (
     <p>Loading...</p>
   ) : error ? (
@@ -91,6 +89,27 @@ export default function SingleReview() {
             </span>
             <span className="single-review-body">{review.review_body}</span>
             <div className="action-buttons">
+              <button
+                className="like-button"
+                disabled={disable}
+                onClick={() => {
+                  incrementLike(review.owner);
+                  setDisable(true);
+                }}
+              >
+                <AiFillLike />
+              </button>
+              <button
+                className="dislike-button"
+                disabled={disable}
+                onClick={() => {
+                  decrementLike(review.owner);
+                  setDisable(true);
+                }}
+              >
+                <AiFillDislike />
+              </button>
+              <span className="likes">{review.votes}</span>
               <CommentsButton
                 onClick={() => {
                   setIsOpen((currOpen) => !currOpen);
@@ -98,32 +117,12 @@ export default function SingleReview() {
               >
                 View Comments ({review.comment_count})
               </CommentsButton>
-              <div className="comment-card">
-                {isOpen && review.comment_count > 0 ? (
-                  <CommentsCard />
-                ) : (
-                  disableButton
-                )}
-              </div>
-              <button
-                className="like-button"
-                onClick={(event) => {
-                  incrementLike(review.owner);
-                  event.currentTarget.disabled = true;
-                }}
-              >
-                <AiFillLike />
-              </button>
-              <button
-                className="dislike-button"
-                onClick={(event) => {
-                  decrementLike(review.owner);
-                  event.currentTarget.disabled = true;
-                }}
-              >
-                <AiFillDislike />
-              </button>
-              <span className="likes">{review.votes}</span>
+
+              {isOpen && (
+                <div className="comment-card">
+                  <CommentsCard setIsOpen={setIsOpen} />
+                </div>
+              )}
             </div>
           </div>
         );

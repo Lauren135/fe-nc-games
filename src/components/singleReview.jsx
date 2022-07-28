@@ -1,17 +1,25 @@
 import { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
 
+import CommentsButton from "./commentsButton";
+import CommentsCard from "./commentsCard";
+
 export default function SingleReview() {
   const { review_id } = useParams();
   const [reviews, setReviews] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [disable, setDisable] = React.useState(false);
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`https://my-be-nc-games.herokuapp.com/api/reviews/${review_id}`)
+      .get(
+        `https://my-be-nc-games.herokuapp.com/api/reviews/${review_id}/comment_count`
+      )
       .then((res) => {
         setReviews(res.data.reviews);
         setIsLoading(false);
@@ -80,24 +88,41 @@ export default function SingleReview() {
               <span className="owner">{review.owner} -</span>
             </span>
             <span className="single-review-body">{review.review_body}</span>
-            <div className="like-buttons">
+            <div className="action-buttons">
               <button
                 className="like-button"
+                disabled={disable}
                 onClick={() => {
                   incrementLike(review.owner);
+                  setDisable(true);
                 }}
               >
                 <AiFillLike />
               </button>
               <button
                 className="dislike-button"
+                disabled={disable}
                 onClick={() => {
                   decrementLike(review.owner);
+                  setDisable(true);
                 }}
               >
                 <AiFillDislike />
               </button>
               <span className="likes">{review.votes}</span>
+              <CommentsButton
+                onClick={() => {
+                  setIsOpen((currOpen) => !currOpen);
+                }}
+              >
+                View Comments ({review.comment_count})
+              </CommentsButton>
+
+              {isOpen && (
+                <div className="comment-card">
+                  <CommentsCard setIsOpen={setIsOpen} />
+                </div>
+              )}
             </div>
           </div>
         );

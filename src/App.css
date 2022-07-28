@@ -5,11 +5,8 @@
 body{
   align-items: center;
   margin: 50px;
+  line-height: 30px;
 }
-
-/* body {
-  margin: 50px;
-  } */
 
 .review-list{
   list-style: none;
@@ -86,7 +83,6 @@ body{
 
 .single-review-owner {
   margin-right: 7px;
-  /* margin-left: 20px; */
 color: rgb(108, 108, 110);
 }
 
@@ -95,7 +91,11 @@ color: rgb(108, 108, 110);
   color: rgb(108, 108, 110);
 }
 
-.like-buttons {
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content:left;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -111,4 +111,47 @@ color: rgb(108, 108, 110);
 
 .likes{
   margin-left: 10px;
+  margin-right: 20px;
+}
+
+.comments-button {
+  margin-right: 15px;
+  font-size: 17px;
+}
+
+
+.comment-author {
+  margin-right: 7px;
+  color: rgb(108, 108, 110);
+  margin-bottom: 100px;
+}
+
+.comment-author-name {
+  margin-right: 20px;
+  color: rgb(108, 108, 110);
+  margin-bottom: 10px;
+}
+
+.comment-body {
+  margin-bottom: 10px;
+}
+
+.comment-card {
+
+  border: 2px solid #ccc;
+  padding: 10px;
+  flex-wrap: wrap;
+
+}
+
+.line {
+  border-bottom: 2px solid #ccc;
+  display: block;
+}
+.hide-comments {
+  display: flex;
+  flex-direction: row;
+  justify-content:left;
+  align-items: center;
+  margin-top: 10px;
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import InputComment from "./inputComment";
 
 export default function CommentsCard({ setIsOpen }) {
   const { review_id } = useParams();
@@ -33,6 +34,7 @@ export default function CommentsCard({ setIsOpen }) {
           </div>
         );
       })}
+      <InputComment />
       <button
         className="hide-comments"
         onClick={() => {

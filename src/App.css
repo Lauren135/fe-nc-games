@@ -50,6 +50,10 @@ body{
   margin: 10px auto;
 }
 
+.category-input {
+  margin-right: 20px;
+}
+
 .filters-container select{
   font-size: 1rem;
   padding: 2px;
@@ -161,4 +165,17 @@ color: rgb(108, 108, 110);
  
   color: rgb(108, 108, 110);
   
+}
+
+.votes-comments {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.review-votes {
+  margin-right: 10px;
 }

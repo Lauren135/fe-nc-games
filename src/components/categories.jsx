@@ -30,7 +30,9 @@ export default function Categories({
     <p>Loading...</p>
   ) : (
     <div className="filters-container">
-      <label htmlFor="categories">Category:</label>
+      <label htmlFor="categories" className="category-input">
+        Category:
+      </label>
       <select
         name="categories"
         id="categories"

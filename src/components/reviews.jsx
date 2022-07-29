@@ -5,6 +5,7 @@ import axios from "axios";
 import ReviewCard from "./reviewCard";
 import Categories from "./categories";
 import { useParams } from "react-router-dom";
+import SortBy from "./sortBy";
 
 export default function Reviews({
   selectCategory,
@@ -37,6 +38,7 @@ export default function Reviews({
         setSelectCategory={setSelectCategory}
         selectCategory={selectCategory}
       />
+      <SortBy reviewList={reviewList} setReviewList={setReviewList} />
       <ul className="review-list">
         {reviewList.map((review) => {
           return (

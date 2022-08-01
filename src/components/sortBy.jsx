@@ -17,7 +17,7 @@ export default function SortBy({ reviewList, setReviewList }) {
     };
 
     sortArray(sortBy);
-  }, [sortBy]);
+  }, [sortBy, reviewList, setReviewList]);
 
   return (
     <div className="filters-container">

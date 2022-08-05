@@ -13,7 +13,7 @@ import CommentsCard from "./components/commentsCard";
 function App() {
   const [selectCategory, setSelectCategory] = useState("");
   const [reviewCategories, setReviewCategories] = useState([]);
-  const [user, setUser] = useState("jessjelly");
+  const [user] = useState("jessjelly");
   return (
     <BrowserRouter>
       <UserContext.Provider value={user}>
